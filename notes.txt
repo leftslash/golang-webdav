@@ -1,0 +1,59 @@
+Specification
+=============
+https://tools.ietf.org/html/rfc4918
+
+Sample Property
+===============
+<D:prop xml:lang="en" xmlns:D="DAV:">
+ <x:author xmlns:x='http://example.com/ns'>
+	 <x:name>Jane Doe</x:name>
+	 <!-- Jane's contact info -->
+	 <x:uri type='email'
+					added='2005-11-26'>mailto:jane.doe@example.com</x:uri>
+	 <x:uri type='web'
+					added='2005-11-27'>http://www.example.com</x:uri>
+	 <x:notes xmlns:h='http://www.w3.org/1999/xhtml'>
+		 Jane has been working way <h:em>too</h:em> long on the
+		 long-awaited revision of <![CDATA[<RFC2518>]]>.
+	 </x:notes>
+ </x:author>
+</D:prop>
+
+
+Techniques Required
+===================
+XML Parsing & Generation
+UUID Generation
+	"urn:uuid:f81d4fae-7dec-11d0-a765-00a0c91e6bf6"
+SQLite for lock management
+
+Thoughts
+========
+Should use FastCGI so reponse time is acceptable.
+Should avoid interrogating filesystem on startup to make things quicker.
+Should support write locks and shared and exclusive locks.
+Should support lock timeouts and administrative unlock.
+Should use a SQLite database to manage locks and properties.
+Filesystem should only contain collection names, collection content, resource names, resource content
+Datamodel should include collection, resource, property, lock
+
+Warnings
+========
+This project does not provide any authentication.  This should be performed using Basic Authentication.
+Likewise, SSL should be used to ensure that credntials, properties and content are not in the clear.
+Underlying filesystem should not be accessed excxept by webdav, no direct manipulation
+Use cadaver (like ftp) if you need to do command line maniuplation
+
+Methods
+=======
+OPTIONS
+LOCK
+UNLOCK
+PROPFIND
+PROPPATCH
+GET
+PUT
+MOVE
+COPY
+MKCOL
+DELETE
